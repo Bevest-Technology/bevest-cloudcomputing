@@ -9,5 +9,5 @@ const dbPool = mysql.createPool({
     waitForConnections: true
 });
 
-
+// module exports
 module.exports = dbPool.promise();

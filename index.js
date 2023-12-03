@@ -1,46 +1,24 @@
-// call library
+// define function and library
 const express = require('express');
 require('dotenv').config()
+PORT = process.env.PORT
+const UsersRoutes = require('./routes/users');
 
 //define web server
 const app = express()
 
+// mengizinkan file json
+app.use(express.json());
 
 // initiate index endpoint
 app.get('/', (req, res) => {
     res.send("Ini halaman endpoint index")
 })
 
-// database demo config
-const mysql = require('mysql2');
-
-// Define database connection pool 
-const dbPool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    waitForConnections: true
-});
-
-// database test
-app.use('/db', (req, res) => {
-    dbPool.execute('SELECT * FROM users', (err, rows) => {
-    if(err){
-        res.json({
-            message: 'connection failed'
-        })
-    }
-
-    res.json({
-        message: 'connection success',
-        data: rows
-    })
-})
-})
+// call endpoint users
+app.use('/users', UsersRoutes);
 
 // initiate port web server
-PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Web server is running on port: ${PORT}`)
 })
