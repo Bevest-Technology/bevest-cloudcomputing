@@ -5,11 +5,38 @@ require('dotenv').config()
 //define web server
 const app = express()
 
-//define port
 
 // initiate index endpoint
 app.get('/', (req, res) => {
     res.send("Ini halaman endpoint index")
+})
+
+// database demo config
+const mysql = require('mysql2');
+
+// Define database connection pool 
+const dbPool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    waitForConnections: true
+});
+
+// database test
+app.use('/db', (req, res) => {
+    dbPool.execute('SELECT * FROM users', (err, rows) => {
+    if(err){
+        res.json({
+            message: 'connection failed'
+        })
+    }
+
+    res.json({
+        message: 'connection success',
+        data: rows
+    })
+})
 })
 
 // initiate port web server
