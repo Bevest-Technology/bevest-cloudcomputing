@@ -18,6 +18,13 @@ app.get('/', (req, res) => {
 // call endpoint users
 app.use('/users', UsersRoutes);
 
+// error handling server
+app.use((err, req, res, next) => {
+    res.json({
+        message: err.message
+    })
+})
+
 // initiate port web server
 app.listen(PORT, () => {
     console.log(`Web server is running on port: ${PORT}`)

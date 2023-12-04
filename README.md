@@ -10,4 +10,5 @@ Bevest, an equity crowdfunding application integrated with machine learning capa
 ## Database Schema
 [images]
 
+## 
 
