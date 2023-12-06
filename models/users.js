@@ -1,24 +1,43 @@
-// call database
-const dbPool = require('../config/database');
+// call database - mysql2
+// const dbPool = require('../config/database');
+// const bcrypt = require('bcrypt');
+// const User   = require('../config/database');
 
-// MODELS USERS - Connecting to database
+// call database - sequalize
+const Sequelize = require('sequelize');
+const db = require('../config/database');
 
-// Register Models
-const register = (body) => {
-    const SQLQuery = `INSERT INTO users (displayName, email, password, role) VALUES ('${body.displayName}','${body.email}','${body.password}','${body.role}')`;
+// define entity - Users
+const { DataTypes } = Sequelize;
 
-    return dbPool.execute(SQLQuery);
-}
+const Users = db.define('users', {
+    displayName:{
+        type: DataTypes.STRING
+    },
+    email:{
+        type: DataTypes.STRING
+    },
+    password:{
+        type: DataTypes.STRING
+    },
+    role:{
+        type:DataTypes.STRING
+    },
+    refresh_token:{
+        type: DataTypes.TEXT
+    },
+    // createdAt:{
+    //     type: DataTypes.STRING
+    // },
+    // updatedAt:{
+    //     type: DataTypes.STRING
+    // }
+},{
+    freezeTableName:true
+});
 
-// Get All User Models
-const getUsers = () => {
-    const SQLQuery = `SELECT * FROM users`;
+(async () => {
+    await db.sync();
+})();
 
-    return dbPool.execute(SQLQuery);
-}
-
-// module exports
-module.exports = {
-    register,
-    getUsers
-}
+module.exports = Users;
