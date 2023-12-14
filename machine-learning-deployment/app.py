@@ -14,11 +14,19 @@ class UKM(BaseModel):
     aset_jaminan_kredit: float
     jumlah_dokumen_kredit: int
 
+class Pendanaan(BaseModel):
+    total_aset: float
+    penjualan_rata2: float
+    tenaga_kerja: int
+    aset_jaminan_kredit: float
+    jumlah_dokumen_kredit: int
+
 # Define FastAPI for webserver
 app = FastAPI()
 
-# Load model fitur 1
+# Load model fitur 1 & 3 
 screening_model = tf.keras.models.load_model('model_screening.h5')
+valuation_model = tf.keras.models.load_model('model_valuation.h5')
 
 # Endpoint index
 @app.get("/")
@@ -47,6 +55,20 @@ def predict(data: UKM):
     }
 
 
+# Endpoint pendanaan ukm (business valuation) | fitur ml 3
+@app.post("/valuation")
+def predict(data: Pendanaan):
+    total_aset = data.total_aset
+    penjualan_rata2 = data.penjualan_rata2
+    tenaga_kerja = data.tenaga_kerja
+    aset_jaminan_kredit = data.aset_jaminan_kredit
+    jumlah_dokumen_kredit = data.jumlah_dokumen_kredit
+
+    valuation_result = valuation_model.predict([[total_aset, penjualan_rata2, tenaga_kerja, aset_jaminan_kredit, jumlah_dokumen_kredit]])
+
+    return {
+        "Valuation:": valuation_result.tolist()
+    }
 
 # run API with uvicorn
 if __name__ == '__main__':
