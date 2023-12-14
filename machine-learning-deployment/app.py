@@ -1,70 +1,53 @@
 #Import Library
-import uvicorn
+import tensorflow as tf
 from fastapi import FastAPI
-from data import DataUKM, DataProfilInvestor
-import pickle
-from keras.models import load_model
+from pydantic import BaseModel
+import uvicorn
+import gunicorn
 
-#Create app object
+# Define class model
+
+class UKM(BaseModel):
+    total_aset: float
+    penjualan_rata2: float
+    tenaga_kerja: int
+    aset_jaminan_kredit: float
+    jumlah_dokumen_kredit: int
+
+# Define FastAPI for webserver
 app = FastAPI()
 
-# Load model Fitur 1
-model = load_model("model1.h5")
+# Load model fitur 1
+screening_model = tf.keras.models.load_model('model_screening.h5')
 
-# Load model Fitur 1 pickle
-# model_load = pickle.load('model1.pkl', 'rb')
-
-#Load model Fitur 2
-# model = load_model("model2.h5")
-
+# Endpoint index
 @app.get("/")
 def index():
-    return {"message": "OK"}
+    return {'message': 'OK'}
 
+# Endpoint screening ukm (skrining ukm) | fitur ml 1
+@app.post("/screening")
+def predict(data: UKM):
+    total_aset = data.total_aset
+    penjualan_rata2 = data.penjualan_rata2
+    tenaga_kerja = data.tenaga_kerja
+    aset_jaminan_kredit = data.aset_jaminan_kredit
+    jumlah_dokumen_kredit = data.jumlah_dokumen_kredit
 
-# Endpoint untuk prediksi ukm | fitur ml 1
-@app.post("/predict_ukm")
-def predict_ukm(data: DataUKM):
-    
-    data = data.dict()
-    total_aset = data["total_aset"]
-    rata_penjualan = data["rata_penjualan"]
-    nilai_aset = data["nilai_aset"]
-    
-    prediction = model.predict([[total_aset, rata_penjualan, nilai_aset]])
+    screening_result = screening_model.predict([[total_aset, penjualan_rata2, tenaga_kerja, aset_jaminan_kredit, jumlah_dokumen_kredit]])
 
-    if(prediction > 0.5):
+    if (screening_result > 0.5 ):
         label = "Layak"
     else:
         label = "Tidak Layak"
 
     return {
-        "prediction": prediction.tolist(),
-        "label" : label
+        "Screening Result:": screening_result.tolist(),
+        "Label:": label
     }
-    
-# Endpoint untuk profiling investor | fitur ml 2
-@app.post("/predict_investor")
-def predict_investor(data: DataProfilInvestor):
-    data = data.dict()
-    umur = data["umur"]
-    jenis_kelamin = data["jenis_kelamin"]
-    pendapatan = data["pendapatan"]
-    edukasi = data["edukasi"]
-    rumah = data["rumah"]
 
-    prediction = model.predict([[umur, jenis_kelamin, pendapatan, edukasi, rumah]])
 
-    return {
-        "prediction": prediction.tolist()
-    }
 
 # run API with uvicorn
 if __name__ == '__main__':
     uvicorn.run(app, host='127.0.0.1', port=8000)
-
-
-
-
-
-
