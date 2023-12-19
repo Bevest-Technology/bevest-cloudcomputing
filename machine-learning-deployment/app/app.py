@@ -41,8 +41,15 @@ app = FastAPI()
 
 # Load model fitur 1, 2, 3 
 screening_model = tf.keras.models.load_model('./model/model_screening.h5')
+
+def predict_profile(normalized_data):
+    #load tensorflow model
+    profilling_model = tf.keras.models.load_model('./model/model_profiling.h5')
+    profilling_predictions = profilling_model.predict(normalized_data)
+    return profilling_predictions
+
 valuation_model = tf.keras.models.load_model('./model/model_valuation.h5')
-profilling_model = tf.keras.models.load_model('./model/model_profilling.h5')
+
 
 # Endpoint index
 @app.get("/")
