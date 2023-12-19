@@ -102,8 +102,8 @@ def predict(data: Investor):
     number_of_children = data.number_of_children
     home_ownership = data.home_ownership
 
-    prediction = profilling_model.predict([[age, gender, income, education, marital_status, number_of_children, home_ownership]])
-
+    normalized_data = preprocess_data(age, gender, income, education, marital_status, number_of_children, home_ownership)
+    profilling_predictions = predict_profile(normalized_data)
     # Mendapatkan indeks nilai maksimum
     predicted_class = np.argmax(prediction)
 
