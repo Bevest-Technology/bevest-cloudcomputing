@@ -107,8 +107,10 @@ def predict(data: Pendanaan):
 
     valuation_result = valuation_model.predict([[total_aset, penjualan_rata2, tenaga_kerja, aset_jaminan_kredit, jumlah_dokumen_kredit]])
 
+    rounded_value = math.floor(valuation_result[0][0])*1000000
+    
     return {
-        "Valuation:": valuation_result.tolist()
+        "Valuation:": rounded_value
     }
 
 # run API with uvicorn
