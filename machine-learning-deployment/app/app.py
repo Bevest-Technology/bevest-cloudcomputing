@@ -5,7 +5,11 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
 import numpy as np
-import gunicorn
+import math
+# from preprocessing import preprocess_data
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+import joblib
 
 # Define class model
 
