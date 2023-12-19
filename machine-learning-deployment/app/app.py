@@ -36,6 +36,16 @@ class Investor(BaseModel):
     number_of_children: int
     home_ownership: int
 
+# normalize data process
+def normalize_data(age, gender, income, education, marital_status, number_of_children, home_ownership):
+    # Load the saved scaler using joblib
+    scaler = joblib.load('normalization_model.joblib')
+    data = np.array([[age, gender, income, education, marital_status, number_of_children, home_ownership]])
+    # Normalize the data using Joblib
+    normalized_data = scaler.transform(data)
+    return normalized_data
+
+
 # Define FastAPI for webserver
 app = FastAPI()
 
