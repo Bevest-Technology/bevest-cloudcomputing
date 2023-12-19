@@ -104,8 +104,10 @@ def predict(data: Investor):
 
     normalized_data = preprocess_data(age, gender, income, education, marital_status, number_of_children, home_ownership)
     profilling_predictions = predict_profile(normalized_data)
+
     # Mendapatkan indeks nilai maksimum
-    predicted_class = np.argmax(prediction)
+    predicted_class = np.argmax(profilling_predictions)
+
 
     # Definisikan label kelas sesuai dengan indeks maksimum
     class_labels = ['paragmatic', 'progresif', 'pioneering']
