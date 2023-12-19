@@ -47,7 +47,7 @@ profilling_model = tf.keras.models.load_model('./model/model_profilling.h5')
 # Endpoint index
 @app.get("/")
 def index():
-    return {'message': 'OK'}
+    return {'message': 'Welcome to Bevest Machine Learning API'}
 
 # Endpoint screening ukm (skrining ukm) | fitur ml 1
 @app.post("/screening")
