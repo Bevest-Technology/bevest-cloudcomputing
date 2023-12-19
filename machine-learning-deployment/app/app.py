@@ -115,7 +115,7 @@ def predict(data: Investor):
 
 
     return {
-        "prediction": prediction.tolist(),
+        "prediction": profilling_predictions.tolist(),
         'label': predicted_label
     }
 
