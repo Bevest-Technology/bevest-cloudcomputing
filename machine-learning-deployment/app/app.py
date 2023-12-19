@@ -45,6 +45,10 @@ def normalize_data(age, gender, income, education, marital_status, number_of_chi
     normalized_data = scaler.transform(data)
     return normalized_data
 
+# preprocess data
+def preprocess_data(age, gender, income, education, marital_status, number_of_children, home_ownership):
+    normalized_data = normalize_data(age, gender, income, education, marital_status, number_of_children, home_ownership)
+    return normalized_data
 
 # Define FastAPI for webserver
 app = FastAPI()
