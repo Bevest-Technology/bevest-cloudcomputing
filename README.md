@@ -7,8 +7,6 @@ Bevest, an equity crowdfunding application integrated with machine learning capa
 ## Cloud Architecture
 ![Cloud Architecture Design](https://raw.githubusercontent.com/Bevest-Technology/bevest-cloudcomputing/main/components/Cloud%20Architecture%20Bevest-Bevest%20Cloud%20Architecture.png)
 
-## Database Schema
-[images]
 
 ## 
 
