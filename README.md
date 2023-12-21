@@ -24,7 +24,7 @@ gcloud services enable cloudbuild.googleapis.com \
     run.googleapis.com
 ```
 
-## Use your main.app
+### Use your main.app
 
 ```bash
 pip install -r requirements.txt
@@ -88,6 +88,7 @@ gcloud run services describe $APP --region $REGION
 ```
 
 Note, even though we've chosen a random port like `1234`, the deployed service will use `8080` by default. This is why we need `--port ${PORT}` in the last line of our Dockerfile.
+
 
 ## Features for ML Prediction
 
