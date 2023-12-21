@@ -9,6 +9,7 @@ Bevest, an equity crowdfunding application integrated with machine learning capa
 
 ## Cloud Deployment
 
+### Initiate variables
 ```bash
 export PROJECT_ID=bevest
 export APP=bevest-ml
@@ -37,7 +38,7 @@ curl http://127.0.0.1:$PORT
 ```
 As a response you'll see `{"message":"Welcome to Bevest Machine Learning API"}`.
 
-## App into Docker
+### App into Docker
 
 You need to put your app into an image before deploying it. Here you see an example docker file. Note that you should use a PORT as environment variable. If you don't you'll get an error like `Cloud Run error: The user-provided container failed to start and listen on the port defined provided by the PORT=8080 environment variable.`
 
@@ -69,7 +70,7 @@ Again you can check it in your browser our curl it:
  curl http://127.0.0.1:$PORT
 ```
 
-## Deployment
+### Deployment
 If everything worked out so far, we're ready to deploy our app. First we create a Google Cloud Build. Maybe it's similar to pushing a docker image to a docker registry.
 
 ```bash
@@ -80,7 +81,7 @@ After this is done, well it's finally time to deploy your cloud run app :).
 ```bash
 gcloud run deploy $APP --image $TAG --platform managed --region $REGION --allow-unauthenticated
 ```
-## Test it
+### Test it
 Note, this may take some minutes. The URL of your app will show up in the terminal. But you can also check your app via:
 ```bash
 # See all info about the app
