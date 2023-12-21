@@ -91,4 +91,23 @@ Note, even though we've chosen a random port like `1234`, the deployed service w
 
 ## Features for ML Prediction
 
+Index Endpoint
+```bash
+https://bevest-ml-dh4jnqbhjq-et.a.run.app/
+```
+
+Screening MSEs Endpoint
+```bash
+https://bevest-ml-dh4jnqbhjq-et.a.run.app/screening
+```
+
+Investor Profilling Endpoint
+```bash
+https://bevest-ml-dh4jnqbhjq-et.a.run.app/profilling
+```
+
+Business Valuation Endpoint
+```bash
+https://bevest-ml-dh4jnqbhjq-et.a.run.app/valuation
+```
 
