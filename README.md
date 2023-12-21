@@ -15,7 +15,7 @@ export APP=bevest-ml
 export PORT=2345
 export REGION="asia-southeast2"
 export TAG="gcr.io/$PROJECT_ID/$APP"
-
+```
 
 Enable the services you need.
 ```bash
