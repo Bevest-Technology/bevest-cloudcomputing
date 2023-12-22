@@ -91,25 +91,65 @@ gcloud run services describe $APP --region $REGION
 Note, even though we've chosen a random port like `1234`, the deployed service will use `8080` by default. This is why we need `--port ${PORT}` in the last line of our Dockerfile.
 
 
-## Features for ML Prediction
+## API Endpoints
 
-Index Endpoint
+### Index Endpoint
+- **URL**: `https://bevest-ml-dh4jnqbhjq-et.a.run.app/`
+- **Method**: GET
+- **Response**: `200`
 ```bash
-https://bevest-ml-dh4jnqbhjq-et.a.run.app/
+{
+  "message": "Welcome to Bevest Machine Learning API"
+}
 ```
 
-Screening MSEs Endpoint
+### Screening MSEs Endpoint
+- **URL**: `https://bevest-ml-dh4jnqbhjq-et.a.run.app/screening`
+- **Method**: POST
+- **Response**: `200`
 ```bash
-https://bevest-ml-dh4jnqbhjq-et.a.run.app/screening
+{
+  "msg": "success",
+  "code": 200,
+  "screening_result": [
+    [
+      0.009378860704600811
+    ]
+  ],
+  "label": "tidak_layak"
+}
 ```
 
-Investor Profilling Endpoint
+### Investor Profilling Endpoint
+- **URL**: `https://bevest-ml-dh4jnqbhjq-et.a.run.app/profilling`
+- **Method**: POST
+- **Response**: `200`
 ```bash
-https://bevest-ml-dh4jnqbhjq-et.a.run.app/profilling
+{
+  "msg": "success",
+  "code": 200,
+  "prediction": [
+    [
+      7.76981750050254e-8,
+      0.9999997615814209,
+      1.7530572904433939e-7
+    ]
+  ],
+  "label": "progresif"
+}
 ```
 
-Business Valuation Endpoint
+
+### Business Valuation Endpoint
+- **URL**: `https://bevest-ml-dh4jnqbhjq-et.a.run.app/valuation`
+- **Method**: POST
+- **Response**: `200`
 ```bash
-https://bevest-ml-dh4jnqbhjq-et.a.run.app/valuation
+{
+  "msg": "success",
+  "code": 200,
+  "valuation": -1000000
+}
 ```
+
 
